@@ -1,28 +1,29 @@
-#include<stdio.h>
+#include <stdio.h>
 
 int main()
 {
-	char text[] = "";
-	char additional_text[100];
-	int command = 0;
+    char text[100] = "";
 
-	while (1)
-	{
-		printf("\nChoose the command:\n");
+    char additional_text[100];
+    int command = 0;
 
-		printf("(from 0 to 10, where 10 is instructions): ");
-		scanf_s("%d", &command);
+    while (1)
+    {
+        printf("\nChoose the command:\n");
 
-		if (command == 0)
-		{
-			break;
-		}
-		else if (command == 1)
-		{
-			printf("\nEnter the text you want to add: \n");
-			scanf_s(" %99[^\n]", &additional_text, sizeof(additional_text));
-			strcat(text, additional_text);
-		}
+        printf("(from 0 to 10, where 10 is instructions): ");
+        scanf_s("%d", &command);
+
+        if (command == 0)
+        {
+            break;
+        }
+        else if (command == 1)
+        {
+            printf("\nEnter the text you want to add: \n");
+            scanf_s(" %99[^\n]", additional_text, sizeof(additional_text));
+            strcat_s(text, sizeof(text), additional_text);
+        }
 		else if (command == 2)
 		{
 			strcat(text, "\n");
@@ -63,9 +64,8 @@ int main()
 			printf("Command 9 is for ;\n");
 			printf("Command 10 is for instructions.\n");
 		}
-		printf("\nThe text is \"%s\" now.\n", text);
-	}
+        printf("\nThe text is \"%s\" now.\n", text);
+    }
 
-
-	return 0;
+    return 0;
 }
