@@ -15,6 +15,10 @@ int main() {
         if (command == 0) {
             break;
         }
+        else if (command == -1) {
+            printf("The text is cleared.");
+            strcpy(text, "");
+        }
         else if (command == 1) {
             printf("\nEnter the text you want to add: \n");
             scanf_s(" %99[^\n]", additional_text, sizeof(additional_text));
