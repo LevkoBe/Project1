@@ -1,7 +1,39 @@
 #include <stdio.h>
 
+char text[100] = "";
+
+void insert_line(int line, int column, int text_length, int inserting, const char* additional_text) {
+    int lines = 0;
+    int position = 0;
+    char result[100] = "";
+    for (int i = 0; i < text_length; i++)
+    {
+        if (lines == line)
+        {
+            position = i + column;
+            break;
+        }
+        else if (text[i] == '\n')
+        {
+            lines++;
+        }
+    }
+    for (int i = 0; i < position; i++)
+    {
+        result[i] = text[i];
+    }
+    for (int i = 0; i < inserting; i++)
+    {
+        result[position + i] = additional_text[i];
+    }
+    for (int i = 0; i < text_length - position; i++)
+    {
+        result[position + inserting + i] = text[position + i];
+    }
+    strcpy_s(text, sizeof(text), result);
+}
+
 int main() {
-    char text[100] = "";
 
     char additional_text[100];
     int command = 0;
@@ -65,7 +97,18 @@ int main() {
             printf("\nThe text is \"%s\" now.\n", text);
         }
         else if (command == 6) {
-            // Handle other commands...
+            //printf("Choose line and index: ");
+            int line;
+            int column;
+            printf_s("Line: ");
+            scanf_s("%d", &line);
+            printf_s("Column: ");
+            scanf_s("%d", &column);
+            printf("Enter text to insert: ");
+            scanf_s(" %99[^\n]", additional_text, sizeof(additional_text));
+            int text_length = strlen(text);
+            int inserting = strlen(additional_text);
+            insert_line(line, column, text_length, inserting, additional_text);
         }
         else if (command == 7) {
 
