@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 
 char text[100] = "";
 
@@ -31,6 +32,34 @@ void insert_line(int line, int column, int text_length, int inserting, const cha
         result[position + inserting + i] = text[position + i];
     }
     strcpy_s(text, sizeof(text), result);
+}
+
+void search_text(char* needed) {
+    int n_length = strlen(needed);
+    int indices[100];
+    int count = 0;
+    for (int i = 0; i <= strlen(text) - n_length; i++)
+    {
+        bool get_out = false;
+        for (int j = 0; j < n_length; j++)
+        {
+            if (text[i + j] != needed[j])
+            {
+                get_out = true;
+                break;
+            }
+        }
+        if (!get_out)
+        {
+            indices[count] = i;
+            count++;
+        }
+    }
+
+    for (int i = 0; i < count; i++)
+    {
+        printf("%d, ", indices[i]);
+    }
 }
 
 int main() {
@@ -97,7 +126,6 @@ int main() {
             printf("\nThe text is \"%s\" now.\n", text);
         }
         else if (command == 6) {
-            //printf("Choose line and index: ");
             int line;
             int column;
             printf_s("Line: ");
@@ -111,7 +139,9 @@ int main() {
             insert_line(line, column, text_length, inserting, additional_text);
         }
         else if (command == 7) {
-
+            printf("Enter text to search: ");
+            scanf_s(" %99[^\n]", additional_text, sizeof(additional_text));
+            search_text(additional_text);
         }
         else if (command == 8) {
 
